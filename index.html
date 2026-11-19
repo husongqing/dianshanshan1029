@@ -468,6 +468,23 @@ textarea.inp{height:88px;padding:11px 13px;resize:none;line-height:1.6}
 .vcode{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:12px;padding:12px 13px;background:#FAFCF6}
 .vcode input{flex:1;border:0;background:transparent;outline:none;font-family:var(--mono);font-size:22px;font-weight:800;letter-spacing:7px;color:var(--ink);width:100%}
 .vcode input::placeholder{font-family:inherit;font-size:12.5px;font-weight:500;letter-spacing:0;color:#B6C0B4}
+/* 商品库存管理 */
+.stk{display:flex;gap:11px;padding:13px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.stk:last-child{border-bottom:0}
+.stk-i{width:62px;height:62px;border-radius:12px;flex:0 0 62px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.stk-i img{width:100%;height:100%;object-fit:cover}
+.stk-b{flex:1;min-width:0}
+.stk-n{font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.stk-s{font-size:10.5px;color:var(--text-3);margin-top:3px}
+.stk-f{display:flex;align-items:center;gap:8px;margin-top:8px}
+.stp{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+.stp b{min-width:34px;text-align:center;font-family:var(--mono);font-size:12.5px}
+.stp div{width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--vi-ink);cursor:pointer;user-select:none}
+.stp div:active{background:var(--vi-soft)}
+.pk{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer;align-items:center}
+.pk:last-child{border-bottom:0}
+.pk.dis{opacity:.45}
+.pk.dis{cursor:not-allowed}
 /* 商详 */
 .gal{height:286px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(160deg,#F3F8E9,#E6F0D4)}
 .gal-track{position:relative;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;width:100%;height:100%}
@@ -579,6 +596,7 @@ textarea.inp{height:88px;padding:11px 13px;resize:none;line-height:1.6}
 <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 5.8v5.8c0 4.4 3 7.4 7 9.4 4-2 7-5 7-9.4V5.8L12 3Z"/><path d="m9 11.8 2.2 2.2 4-4.2"/></symbol>
 <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20h16"/><rect x="5.4" y="12" width="3.4" height="6" rx="1"/><rect x="10.4" y="7.6" width="3.4" height="10.4" rx="1"/><rect x="15.4" y="4.4" width="3.4" height="13.6" rx="1"/></symbol>
 <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3" y="6.4" width="18" height="13" rx="3"/><path d="M3 10.6h18"/><circle cx="16.6" cy="15.4" r="1.2" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 7.5 12 3.5l8.5 4v9L12 20.5l-8.5-4z"/><path d="M3.5 7.5 12 11.5l8.5-4M12 11.5v9"/></symbol>
 <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3.4h8l4.4 4.4v12.8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.4a1 1 0 0 1 1-1Z"/><path d="M13.6 3.6V8h4.4"/></symbol>
 <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3.4 8.6h3.2L8 6.2h8l1.4 2.4h3.2v10H3.4v-10Z"/><circle cx="12" cy="13.4" r="3.2"/></symbol>
 <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M4.6 19.4c0-8 5.2-14 14.8-14.8.6 9.4-4.6 15-12.2 15"/><path d="M4.6 19.4c2.4-4.6 5.8-7.6 10-9.4"/></symbol>
@@ -1033,7 +1051,7 @@ textarea.inp{height:88px;padding:11px 13px;resize:none;line-height:1.6}
       <div onclick="pickSeg(this,'ship')">门店配送</div>
     </div>
     <div class="rows" id="coPick">
-      <div class="row" onclick="toast('切换自提门店')">
+      <div class="row" onclick="openPickStore()">
         <div class="row-i"><svg class="ico"><use href="#i-store"/></svg></div>
         <div class="row-t"><b>电闪闪长沙旗舰店（岳麓店）</b><span>长沙市岳麓区金星北路 168 号 · 距您 1.2km</span></div>
         <div class="row-r">切换<svg class="ico"><use href="#i-right"/></svg></div>
@@ -1783,6 +1801,11 @@ textarea.inp{height:88px;padding:11px 13px;resize:none;line-height:1.6}
         <div class="row-t"><b>师傅业绩排名</b><span>本月 TOP3：王建国 · 李明 · 张伟</span></div>
         <div class="row-r">查看<svg class="ico"><use href="#i-right"/></svg></div>
       </div>
+      <div class="row" onclick="go('store','s-stock')">
+        <div class="row-i" style="background:#F0EAFB;color:#7A4FBF"><svg class="ico"><use href="#i-box"/></svg></div>
+        <div class="row-t"><b>商品库存管理</b><span id="stkEntry">在售 4 款 · 总库存 21 件 · 2 款需补货</span></div>
+        <div class="row-r"><svg class="ico"><use href="#i-right"/></svg></div>
+      </div>
       <div class="row" onclick="goTab('store','s-finance')">
         <div class="row-i" style="background:#FDF0E6;color:#B86A2C"><svg class="ico"><use href="#i-wallet"/></svg></div>
         <div class="row-t"><b>门店收益</b><span>收益比例 18% · 可提现 ¥24,860</span></div>
@@ -1795,10 +1818,11 @@ textarea.inp{height:88px;padding:11px 13px;resize:none;line-height:1.6}
       <div class="g8" onclick="go('store','s-masteradd')"><div class="g8-i"><svg class="ico"><use href="#i-plus"/></svg></div><span>新增师傅</span></div>
       <div class="g8" onclick="openSheet('sheet-withdraw')"><div class="g8-i"><svg class="ico"><use href="#i-cash"/></svg></div><span>申请提现</span></div>
     </div>
-    <div class="sec" style="margin-top:6px"><b><i class="bar-accent"></i>待处理事项</b><span class="tag tag-red">4</span></div>
+    <div class="sec" style="margin-top:6px"><b><i class="bar-accent"></i>待处理事项</b><span class="tag tag-red">5</span></div>
     <div class="rows" style="margin-top:0">
       <div class="row" onclick="go('store','s-orders')"><div class="row-i" style="background:#FDEDE8;color:#C64B2C"><svg class="ico"><use href="#i-bell"/></svg></div><div class="row-t"><b>3 个订单待派单</b><span>最长等待 18 分钟</span></div><div class="row-r"><svg class="ico"><use href="#i-right"/></svg></div></div>
       <div class="row" onclick="go('store','s-masters')"><div class="row-i" style="background:#EAF1FB;color:#2E67A8"><svg class="ico"><use href="#i-doc"/></svg></div><div class="row-t"><b>1 位师傅资料待审核</b><span>张伟 · 提交于 10-28 08:40</span></div><div class="row-r"><svg class="ico"><use href="#i-right"/></svg></div></div>
+      <div class="row" onclick="go('store','s-stock')"><div class="row-i" style="background:#FDF6E8;color:#B8862C"><svg class="ico"><use href="#i-box"/></svg></div><div class="row-t"><b id="stkWarn">2 款商品库存不足</b><span>充电器缺货 · 碟刹片仅剩 3 件</span></div><div class="row-r"><svg class="ico"><use href="#i-right"/></svg></div></div>
     </div>
     <div style="height:96px"></div>
   </div>
@@ -1950,6 +1974,27 @@ textarea.inp{height:88px;padding:11px 13px;resize:none;line-height:1.6}
     <div class="tb" onclick="goTab('store','s-masters')"><svg class="ico"><use href="#i-wrench"/></svg><span>师傅</span></div>
     <div class="tb" onclick="goTab('store','s-finance')"><svg class="ico"><use href="#i-wallet"/></svg><span>财务</span></div>
     <div class="tb" onclick="goTab('store','s-mine')"><svg class="ico"><use href="#i-me"/></svg><span>我的</span></div>
+  </div>
+</section>
+
+<!-- 商品库存管理 -->
+<section class="screen" id="s-stock" data-app="store">
+  <div class="scroll">
+    <div class="navbar"><div class="nb-act" onclick="back()"><svg class="ico"><use href="#i-back"/></svg></div><div class="nb-title">商品库存管理</div><div class="nb-act" onclick="openPool()"><svg class="ico"><use href="#i-plus"/></svg></div></div>
+    <div style="padding:12px 16px 0"><div style="padding:10px 12px;border-radius:11px;background:#F3F7EC;font-size:10.5px;color:var(--text-2);line-height:1.65">平台供货商品由门店<b style="color:var(--vi-ink)">自行选择上架并维护库存</b>；进货与补货请线下联系平台，本页仅做库存记录。用户自提下单时，<b style="color:var(--vi-ink)">仅有现货的门店</b>会出现在自提门店列表；自提订单核销后自动扣减库存。</div></div>
+    <div style="display:flex;gap:10px;padding:12px 16px 0">
+      <div style="flex:1;background:linear-gradient(150deg,#F4F9EA,#E7F1D4);border-radius:13px;padding:12px 14px"><b style="font-family:var(--mono);font-size:19px;color:var(--vi-ink)" id="skA">4</b><div style="font-size:10.5px;color:var(--text-2);margin-top:2px">在售商品</div></div>
+      <div style="flex:1;background:linear-gradient(150deg,#F4F9EA,#E7F1D4);border-radius:13px;padding:12px 14px"><b style="font-family:var(--mono);font-size:19px;color:var(--vi-ink)" id="skB">21</b><div style="font-size:10.5px;color:var(--text-2);margin-top:2px">总库存（件）</div></div>
+      <div style="flex:1;background:linear-gradient(150deg,#FDF3E6,#FAE9D2);border-radius:13px;padding:12px 14px"><b style="font-family:var(--mono);font-size:19px;color:#B8862C" id="skC">2</b><div style="font-size:10.5px;color:var(--text-2);margin-top:2px">需补货</div></div>
+    </div>
+    <div class="chips" style="padding-top:14px">
+      <div class="chip on" data-k="all" onclick="pickSkChip(this)">全部</div>
+      <div class="chip" data-k="on" onclick="pickSkChip(this)">在售</div>
+      <div class="chip" data-k="out" onclick="pickSkChip(this)">缺货</div>
+      <div class="chip" data-k="off" onclick="pickSkChip(this)">未上架</div>
+    </div>
+    <div class="rows" id="skList" style="margin-top:0"></div>
+    <div style="height:60px"></div>
   </div>
 </section>
 
@@ -2242,6 +2287,37 @@ textarea.inp{height:88px;padding:11px 13px;resize:none;line-height:1.6}
     </div>
   </div>
   <div style="padding:10px 18px 0"><div class="btn btn-p" onclick="closeSheets();toast('已派单给 王建国，师傅端已收到派单消息')">确认派单</div></div>
+</div>
+<!-- 选择自提门店弹层（按库存过滤） -->
+<div class="sheet" id="sheet-pickstore">
+  <div class="sheet-grab"></div>
+  <div class="sheet-h"><b>选择自提门店</b><div onclick="closeSheets()"><svg class="ico"><use href="#i-close"/></svg></div></div>
+  <div class="sheet-b">
+    <div style="padding:10px 12px;border-radius:11px;background:#F3F7EC;font-size:10.5px;color:var(--text-2);line-height:1.65;margin-bottom:6px">当前商品：<b id="pkProd" style="color:var(--vi-ink)"></b></div>
+    <div style="padding:10px 12px;border-radius:11px;background:#FDF6EC;font-size:10.5px;color:#8A6420;line-height:1.65;margin-bottom:10px">仅展示<b>有现货库存</b>的自提门店；门店未上架该商品或库存为 0 时不可选择。门店库存由各门店线下向平台进货后自行维护。</div>
+    <div id="pkList"></div>
+  </div>
+</div>
+<!-- 设置库存弹层 -->
+<div class="sheet" id="sheet-stock">
+  <div class="sheet-grab"></div>
+  <div class="sheet-h"><b>设置库存</b><div onclick="closeSheets()"><svg class="ico"><use href="#i-close"/></svg></div></div>
+  <div class="sheet-b">
+    <div style="font-size:12.5px;font-weight:700;margin-bottom:4px" id="stkName"></div>
+    <div style="font-size:10.5px;color:var(--text-3);line-height:1.65;margin-bottom:12px">商品进货与补货请线下联系平台；此处记录门店实际库存，用于自提门店展示与自提订单核销扣减。</div>
+    <div style="font-size:11.5px;color:var(--text-3);margin:0 0 6px">当前库存（件）</div>
+    <div class="vcode"><input id="stkQty" type="number" min="0" inputmode="numeric" placeholder="0"></div>
+  </div>
+  <div style="padding:14px 18px 0;display:flex;gap:10px"><div class="btn btn-o" style="flex:1" onclick="closeSheets()">取消</div><div class="btn btn-p" style="flex:1" onclick="doStockSave()">保存</div></div>
+</div>
+<!-- 添加平台商品弹层 -->
+<div class="sheet" id="sheet-addgoods">
+  <div class="sheet-grab"></div>
+  <div class="sheet-h"><b>添加平台商品</b><div onclick="closeSheets()"><svg class="ico"><use href="#i-close"/></svg></div></div>
+  <div class="sheet-b">
+    <div style="padding:10px 12px;border-radius:11px;background:#F3F7EC;font-size:10.5px;color:var(--text-2);line-height:1.65;margin-bottom:6px">平台可供货商品由总部统一上架，门店按需选择上架；实物需<b style="color:var(--vi-ink)">线下向平台进货</b>后才有库存，上架后请回列表设置库存数量。</div>
+    <div id="poolList"></div>
+  </div>
 </div>
 <!-- 商品核销弹层 -->
 <div class="sheet" id="sheet-verify">
@@ -2911,6 +2987,7 @@ function show(app,id,push){
   const sc0=el.querySelector('.scroll'); if(sc0) sc0.scrollTop=sc0.scrollTop;
   $$('.tb',el).forEach(t=>t.classList.toggle('on',t.getAttribute('onclick').indexOf("'"+id+"'")>-1));
   markNav(app,id);
+  if(id==='s-stock') renderStock();
 }
 function go(app,id){
   if(app!==APP) pickApp(app);
@@ -3267,6 +3344,7 @@ function doVerify(){
     left:'<svg class="ico sm" style="width:13px;height:13px"><use href="#i-check"/></svg>已核销 '+nowHM()+' · 核销人 刘店长',
     acts:'<button class="btn btn-o xs" onclick="toast(\'查看商品订单详情\')">查看</button>' });
   refreshOrdCnt();
+  stockDeduct(VORD);
   toast('核销成功，商品已交付顾客');
 }
 function openCourier(id){
@@ -3300,6 +3378,131 @@ function finishShip(id,who){
   refreshOrdCnt();
   toast(who+' 已送达，订单完成');
 }
+/* ===== 商品库存管理（平台供货 · 门店自选上架与库存） ===== */
+const STOCK=[
+ {name:'磷酸铁锂 48V 24Ah 动力电池',spec:'48V 24Ah · 磷酸铁锂',price:1280,qty:6,on:1,prod:'48V 24Ah'},
+ {name:'智能充电器 48V/60V 通用快充',spec:'通用快充 · 3C 认证',price:178,qty:0,on:1,prod:'智能充电器'},
+ {name:'真空防爆胎 14×2.5 加厚耐磨',spec:'14×2.5 · 防爆真空胎',price:238,qty:12,on:1,prod:'真空防爆胎'},
+ {name:'碟刹片 陶瓷纤维 一对',spec:'陶瓷纤维 · 静音耐磨',price:98,qty:3,on:1,prod:'碟刹片'},
+ {name:'磷酸铁锂 60V 30Ah 轻量化电池',spec:'60V 30Ah · 轻量化',price:1580,qty:0,on:0,prod:'60V 30Ah'},
+ {name:'3C 认证骑行头盔 透气半盔',spec:'3C 认证 · 透气半盔',price:129,qty:0,on:0,prod:'头盔'}
+];
+const ADDPOOL=[
+ {name:'三元锂 60V 32Ah 长续航版',spec:'60V 32Ah · 带 BMS 保护板',price:1680,prod:'三元锂'},
+ {name:'磷酸铁锂电芯 3.2V 100Ah A 品',spec:'3.2V 100Ah · A 品电芯',price:765,prod:'电芯'}
+];
+let SKF='all', STKCUR=-1;
+function stkOn(){ return STOCK.filter(x=>x.on); }
+function renderStockStat(){
+  const on=stkOn(), qty=on.reduce((a,b)=>a+b.qty,0), need=on.filter(x=>x.qty<=3).length;
+  const e1=document.getElementById('stkEntry'), e2=document.getElementById('stkWarn');
+  if(e1) e1.textContent='在售 '+on.length+' 款 · 总库存 '+qty+' 件 · '+need+' 款需补货';
+  if(e2) e2.textContent=need+' 款商品库存不足';
+  const a=document.getElementById('skA'), b=document.getElementById('skB'), c=document.getElementById('skC');
+  if(a){ a.textContent=on.length; b.textContent=qty; c.textContent=need; }
+}
+function renderStock(){
+  const box=document.getElementById('skList'); if(!box) return;
+  const list=STOCK.filter(x=>SKF==='all'||(SKF==='on'&&x.on)||(SKF==='off'&&!x.on)||(SKF==='out'&&x.on&&x.qty===0));
+  box.innerHTML=list.map(x=>{
+    const i=STOCK.indexOf(x);
+    const tag=!x.on?'<span class="tag tag-grey">未上架</span>':(x.qty===0?'<span class="tag tag-red">缺货</span>':(x.qty<=3?'<span class="tag" style="background:#FFF3DE;color:#B8862C">低库存</span>':'<span class="tag tag-vi">在售</span>'));
+    return '<div class="stk">'+
+      '<div class="stk-i" style="background:linear-gradient(150deg,#EDF5DD,#DCEBC2)"><img class="ord-pimg" data-prod="'+x.prod+'" alt=""></div>'+
+      '<div class="stk-b">'+
+        '<div class="stk-n">'+x.name+tag+'</div>'+
+        '<div class="stk-s">'+x.spec+' · 供货价 <b style="font-family:var(--mono)">¥'+x.price+'</b></div>'+
+        '<div class="stk-f">'+
+          '<div class="stp"><div onclick="stkStep('+i+',-1)">−</div><b>'+x.qty+'</b><div onclick="stkStep('+i+',1)">+</div></div>'+
+          '<span style="font-size:10px;color:var(--text-3)">当前库存</span>'+
+          '<div style="margin-left:auto;display:flex;gap:8px;align-items:center">'+
+            '<button class="btn btn-o xs" onclick="stkEdit('+i+')">改库存</button>'+
+            '<div class="sw'+(x.on?' on':'')+'" onclick="stkToggle('+i+')"></div>'+
+          '</div>'+
+        '</div>'+
+      '</div></div>';
+  }).join('')||'<div style="padding:30px 0;text-align:center;font-size:11.5px;color:var(--text-3)">该分类下暂无商品</div>';
+  syncProdImgs(); renderStockStat();
+}
+function pickSkChip(el){
+  $$('#s-stock .chips .chip').forEach(c=>c.classList.remove('on')); el.classList.add('on');
+  SKF=el.dataset.k; renderStock();
+}
+function stkStep(i,d){
+  STOCK[i].qty=Math.max(0,STOCK[i].qty+d); renderStock();
+  toast(STOCK[i].on&&STOCK[i].qty===0?'库存已记为 0，自提门店列表将不再展示该商品':'库存已更新：'+STOCK[i].name+' ×'+STOCK[i].qty);
+}
+function stkToggle(i){
+  const x=STOCK[i]; x.on=!x.on; renderStock();
+  toast(x.on?(x.qty===0?'已上架，库存为 0，自提用户暂看不到该商品':'已上架，自提门店列表已展示'):'已下架，自提门店列表不再展示');
+}
+function stkEdit(i){ STKCUR=i; document.getElementById('stkName').textContent=STOCK[i].name; document.getElementById('stkQty').value=STOCK[i].qty; openSheet('sheet-stock'); }
+function doStockSave(){
+  const v=parseInt(document.getElementById('stkQty').value,10);
+  if(isNaN(v)||v<0){ toast('请输入不小于 0 的库存数量'); return; }
+  STOCK[STKCUR].qty=v; closeSheets(); renderStock();
+  toast('库存已更新：'+STOCK[STKCUR].name+' ×'+v);
+}
+function openPool(){
+  document.getElementById('poolList').innerHTML=ADDPOOL.map((g,i)=>
+    '<div class="pk" style="cursor:default"><div class="stk-i" style="background:linear-gradient(150deg,#EDF5DD,#DCEBC2)"><img class="ord-pimg" data-prod="'+g.prod+'" alt=""></div>'+
+    '<div style="flex:1;min-width:0"><b style="font-size:12.5px">'+g.name+'</b><div style="font-size:10.5px;color:var(--text-3);margin-top:3px">'+g.spec+'</div>'+
+    '<div style="font-size:11px;margin-top:4px">供货价 <b style="font-family:var(--mono);color:var(--vi-ink)">¥'+g.price+'</b></div></div>'+
+    '<button class="btn btn-p xs" onclick="addPool(this,'+i+')">上架</button></div>'
+  ).join('');
+  syncProdImgs(); openSheet('sheet-addgoods');
+}
+function addPool(el,i){
+  const g=ADDPOOL[i];
+  STOCK.push({name:g.name,spec:g.spec,price:g.price,qty:0,on:1,prod:g.prod});
+  el.style.display='none'; renderStock();
+  toast('已上架 '+g.name+'，请在列表中设置库存');
+}
+/* ===== 用户端：自提门店按库存过滤 ===== */
+const PK_PROD='磷酸铁锂 48V 24Ah 动力电池';
+const PICKS=[
+ {name:'电闪闪长沙旗舰店（岳麓店）',addr:'长沙市岳麓区金星北路 168 号',dist:'1.2km',live:1},
+ {name:'电闪闪五一广场店',addr:'长沙市芙蓉区黄兴中路 88 号',dist:'3.6km',qty:4},
+ {name:'电闪闪梅溪湖店',addr:'长沙市岳麓区梅溪湖路 26 号',dist:'5.1km',qty:0},
+ {name:'电闪闪星沙店',addr:'长沙县星沙大道 210 号',dist:'9.8km',qty:-1}
+];
+function stockOf(nm){ const x=STOCK.find(y=>y.name===nm); return x&&x.on?x.qty:-1; }
+function openPickStore(){
+  renderPickStores();
+  const cur=document.querySelector('#coPick .row-t b'), q=stockOf(PK_PROD);
+  const ci=cur?PICKS.findIndex(x=>x.name===cur.textContent.trim()):-1;
+  if(ci>=0){ const n=PICKS[ci].live?q:PICKS[ci].qty; if(n<=0) toast('原自提门店已无该商品库存，请重新选择门店'); }
+  openSheet('sheet-pickstore');
+}
+function renderPickStores(){
+  const q=stockOf(PK_PROD);
+  document.getElementById('pkProd').textContent=PK_PROD;
+  document.getElementById('pkList').innerHTML=PICKS.map((st,i)=>{
+    const n=st.live?q:st.qty, ok=n>0;
+    const label=n>0?'有货 · 库存 '+n+' 件':(n===0?'该门店暂无库存':'该商品未上架');
+    const act=ok?("pickStore("+i+")"):("toast('"+label+"，请选择其他门店')");
+    return '<div class="pk'+(ok?'':' dis')+'" onclick="'+act+'">'+
+      '<div class="av" style="width:42px;height:42px;font-size:15px;background:linear-gradient(150deg,#D8E9BE,#B9D492);color:#2C4112"><svg class="ico"><use href="#i-store"/></svg></div>'+
+      '<div style="flex:1;min-width:0"><b style="font-size:12.5px">'+st.name+'</b>'+
+      '<div style="font-size:10.5px;color:var(--text-3);margin-top:3px">'+st.addr+' · 距您 '+st.dist+'</div>'+
+      '<div style="font-size:10.5px;margin-top:4px;color:'+(ok?'var(--vi-d)':'var(--danger)')+'">'+label+'</div></div>'+
+      (ok?'<div class="row-r"><svg class="ico"><use href="#i-right"/></svg></div>':'')+
+    '</div>';
+  }).join('');
+}
+function pickStore(i){
+  const st=PICKS[i];
+  const t=document.querySelector('#coPick .row-t b'), sp=document.querySelector('#coPick .row-t span');
+  if(t) t.textContent=st.name; if(sp) sp.textContent=st.addr+' · 距您 '+st.dist;
+  closeSheets(); toast('已选择自提门店：'+st.name);
+}
+function stockDeduct(cardId){
+  const c=document.getElementById(cardId); if(!c) return;
+  const b=$('.ord-t b',c); if(!b) return;
+  const nm=b.textContent.trim();
+  const x=STOCK.find(y=>nm.indexOf(y.name.slice(0,6))>-1||y.name.indexOf(nm.slice(0,6))>-1);
+  if(x&&x.qty>0){ x.qty=Math.max(0,x.qty-1); renderStock(); }
+}
 /* 商品缩略图：复用商城的实拍图，避免重复内联 base64 */
 function syncProdImgs(){
   const bank={};
@@ -3317,6 +3520,7 @@ function syncProdImgs(){
 /* 初始化 */
 renderNav();
 syncProdImgs();
+renderStockStat();
 show('user','u-home',false);
 repStep(0);
 </script>
