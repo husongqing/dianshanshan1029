@@ -1803,7 +1803,7 @@ textarea.inp{height:88px;padding:11px 13px;resize:none;line-height:1.6}
       </div>
       <div class="row" onclick="go('store','s-stock')">
         <div class="row-i" style="background:#F0EAFB;color:#7A4FBF"><svg class="ico"><use href="#i-box"/></svg></div>
-        <div class="row-t"><b>商品库存管理</b><span id="stkEntry">在售 4 款 · 总库存 21 件 · 2 款需补货</span></div>
+        <div class="row-t"><b>配件库存管理</b><span id="stkEntry">门店配件 4 · 总库存 21 件 · 2 款需补货</span></div>
         <div class="row-r"><svg class="ico"><use href="#i-right"/></svg></div>
       </div>
       <div class="row" onclick="goTab('store','s-finance')">
@@ -1980,10 +1980,10 @@ textarea.inp{height:88px;padding:11px 13px;resize:none;line-height:1.6}
 <!-- 商品库存管理 -->
 <section class="screen" id="s-stock" data-app="store">
   <div class="scroll">
-    <div class="navbar"><div class="nb-act" onclick="back()"><svg class="ico"><use href="#i-back"/></svg></div><div class="nb-title">商品库存管理</div><div class="nb-act" onclick="openPool()"><svg class="ico"><use href="#i-plus"/></svg></div></div>
+    <div class="navbar"><div class="nb-act" onclick="back()"><svg class="ico"><use href="#i-back"/></svg></div><div class="nb-title">配件库存管理</div><div class="nb-act" onclick="openPool()"><svg class="ico"><use href="#i-plus"/></svg></div></div>
     <div style="padding:12px 16px 0"><div style="padding:10px 12px;border-radius:11px;background:#F3F7EC;font-size:10.5px;color:var(--text-2);line-height:1.65">平台供货商品由门店<b style="color:var(--vi-ink)">自行选择上架并维护库存</b>；进货与补货请线下联系平台，本页仅做库存记录。用户自提下单时，<b style="color:var(--vi-ink)">仅有现货的门店</b>会出现在自提门店列表；自提订单核销后自动扣减库存。</div></div>
     <div style="display:flex;gap:10px;padding:12px 16px 0">
-      <div style="flex:1;background:linear-gradient(150deg,#F4F9EA,#E7F1D4);border-radius:13px;padding:12px 14px"><b style="font-family:var(--mono);font-size:19px;color:var(--vi-ink)" id="skA">4</b><div style="font-size:10.5px;color:var(--text-2);margin-top:2px">在售商品</div></div>
+      <div style="flex:1;background:linear-gradient(150deg,#F4F9EA,#E7F1D4);border-radius:13px;padding:12px 14px"><b style="font-family:var(--mono);font-size:19px;color:var(--vi-ink)" id="skA">4</b><div style="font-size:10.5px;color:var(--text-2);margin-top:2px">门店配件</div></div>
       <div style="flex:1;background:linear-gradient(150deg,#F4F9EA,#E7F1D4);border-radius:13px;padding:12px 14px"><b style="font-family:var(--mono);font-size:19px;color:var(--vi-ink)" id="skB">21</b><div style="font-size:10.5px;color:var(--text-2);margin-top:2px">总库存（件）</div></div>
       <div style="flex:1;background:linear-gradient(150deg,#FDF3E6,#FAE9D2);border-radius:13px;padding:12px 14px"><b style="font-family:var(--mono);font-size:19px;color:#B8862C" id="skC">2</b><div style="font-size:10.5px;color:var(--text-2);margin-top:2px">需补货</div></div>
     </div>
@@ -3396,7 +3396,7 @@ function stkOn(){ return STOCK.filter(x=>x.on); }
 function renderStockStat(){
   const on=stkOn(), qty=on.reduce((a,b)=>a+b.qty,0), need=on.filter(x=>x.qty<=3).length;
   const e1=document.getElementById('stkEntry'), e2=document.getElementById('stkWarn');
-  if(e1) e1.textContent='在售 '+on.length+' 款 · 总库存 '+qty+' 件 · '+need+' 款需补货';
+  if(e1) e1.textContent='门店配件 '+on.length+' · 总库存 '+qty+' 件 · '+need+' 款需补货';
   if(e2) e2.textContent=need+' 款商品库存不足';
   const a=document.getElementById('skA'), b=document.getElementById('skB'), c=document.getElementById('skC');
   if(a){ a.textContent=on.length; b.textContent=qty; c.textContent=need; }
